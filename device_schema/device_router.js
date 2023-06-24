@@ -8,7 +8,7 @@ var Device = require('./device_schema')
 
 device_router.post('/create',async (req,res)=>{
     console.log(req)
-    // jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET,async(err,data)=>{
+    /// jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET,async(err,data)=>{
     //     User.findOne({email:data.email},async (err,user)=>{
     //         var findNameDevice = await user.devices.find(device => device.device_name === req.body.name )
     //         if(findNameDevice) return res.json({status:'err', mess:"Name is match"})
