@@ -81,14 +81,14 @@ device_router.get('/get/okoTOJlX/:n', async (req, res) => {
     res.send({ data: data })
 })
 
-device_router.get('/get/BKRES_test', async (req, res) => {
-
+device_router.get('/get/bkres_sensors/:n', async (req, res) => {
+    const n = parseInt(req.params.n);
     const client = await MongoClient
         .connect(url, { useNewUrlParser: true })
         .catch(err => { console.log(err); })
     const database = client.db("devices")
-    const collection = database.collection("BKRES_test")
-    const data = await collection.find({}).toArray()
+    const collection = database.collection("bkres_sensors")
+    const data = await collection.find({}).sort({ _id: -1 }).limit(n).toArray()
     // console.log(data)
     client.close()
 
