@@ -9,11 +9,11 @@ var Device = require('./device_schema')
 device_router.post('/create',async (req,res)=>{
     console.log(req)
     // jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET,async(err,data)=>{
-        // Device.findOne({device_id: Device},async (err,device)=>{
-            // var findNameDevice = await Device.device_id.findOne(() => device.device_id === req.body.name )
-            // if(findNameDevice) return res.json({status:'err', mess:"Name is match"})
+    //     User.findOne({email:data.email},async (err,user)=>{
+    //         var findNameDevice = await user.devices.find(device => device.device_name === req.body.name )
+    //         if(findNameDevice) return res.json({status:'err', mess:"Name is match"})
             var Api = makeid(8)
-            const device_id= req.query.API;
+            const device_id= req.query.id;
             const device_ip = req.socket.remoteAddress;
             const device_lat = req.query.lat;
             const device_lon= req.query.lon;
@@ -49,7 +49,7 @@ device_router.post('/create',async (req,res)=>{
             })
        
 
-    // })
+//     })
 // })
 
 
@@ -67,14 +67,14 @@ device_router.get('/get/allsensors', async (req, res) => {
     res.send({ data: data })
 })
 
-device_router.get('/get/okoTOJlX', async (req, res) => {
-
+device_router.get('/get/okoTOJlX/:n', async (req, res) => {
+    const n = parseInt(req.params.n);
     const client = await MongoClient
         .connect(url, { useNewUrlParser: true })
         .catch(err => { console.log(err); })
     const database = client.db("devices")
-    const collection = database.collection("BKRES_sensor")
-    const data = await collection.find({}).toArray()
+    const collection = database.collection("BKRES_sensor")   
+    const data = await collection.find({}).sort({ _id: -1 }).limit(n).toArray()
     // console.log(data)
     client.close()
 
