@@ -7,7 +7,6 @@ var DB_URL =process.env.MONGO_URL
 console.log(DB_URL)
 var message_router = require('./message_schema/messsage_router');
 var device_router = require('./device_schema/device_router')
-var alert_router = require('./alert_schema/alert_router')
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
@@ -15,7 +14,6 @@ app.use(express.json())
 
 app.use('/api/message',message_router)
 app.use('/api/device',device_router)
-app.use('/api/alert',alert_router)
 app.get('/',(req,res)=>{
     res.send("DONE");
 })
