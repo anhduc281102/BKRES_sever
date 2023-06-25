@@ -42,7 +42,7 @@ const findAndDisplayAttribute = async (dbName, collectionName, attributeName,n) 
     }
   };
 
-  const findAndDisplayAttributes = async (dbName, collectionName, excludedAttribute) => {
+const findAndDisplayAttributes = async (dbName, collectionName, excludedAttribute) => {
     const client = await MongoClient
       .connect(url, { useNewUrlParser: true })
       .catch(err => { console.log(err); })
