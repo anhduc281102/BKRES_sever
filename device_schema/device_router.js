@@ -6,6 +6,42 @@ var device_router = express.Router()
 var {makeid} = require('../generate_apiKey')
 var Device = require('./device_schema')
 
+const findAndDisplayAttribute = async (dbName, collectionName, attributeName,n) => {
+    const client = await MongoClient
+      .connect(url, { useNewUrlParser: true })
+      .catch(err => { console.log(err); })
+    if (!client)
+        return
+    try {
+      // Select the MongoDB database and collection
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+  
+      // Find the document and retrieve the attribute
+      const document = await collection.findOne({});
+      const attributeValue = document[attributeName];
+      const startIndex = Math.max(0, attributeValue.length - n);
+      // Construct the response with the attribute value
+      let response = `Attribute: ${attributeName}\n`;
+      for (let i = startIndex; i < attributeValue.length; i++) {
+        const obj = attributeValue[i];
+        response += `Object ${i + 1}:\n`;
+        Object.entries(obj).forEach(([key, value]) => {
+          response += `${key}: ${value}\n`;
+        });
+        response += '---\n';
+      }
+
+      return response;
+  
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      // Close the MongoDB connection
+      client.close();
+    }
+  };
+
 device_router.post('/create',async (req,res)=>{
     console.log(req)
     /// jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET,async(err,data)=>{
@@ -47,11 +83,8 @@ device_router.post('/create',async (req,res)=>{
             //     })
             // })
             })
-       
-
 //     })
 // })
-
 
 device_router.get('/get/allsensors', async (req, res) => {
 
@@ -81,20 +114,20 @@ device_router.get('/get/okoTOJlX/:n', async (req, res) => {
     res.send({ data: data })
 })
 
-device_router.get('/get/bkres_sensors/:n', async (req, res) => {
-    const n = parseInt(req.params.n);
-    const client = await MongoClient
-        .connect(url, { useNewUrlParser: true })
-        .catch(err => { console.log(err); })
-    const database = client.db("devices")
-    const collection = database.collection("bkres_sensors")
-    const data = await collection.find({}).sort({ _id: -1 }).limit(n).toArray()
-    // console.log(data)
-    client.close()
+device_router.get('/get/bkres_sensors', async (req, res) => {
+    const dbName = 'devices';
+    const collectionName = 'bkres_sensors';
+    const attributeName = req.query.attributeName;
+    const n = parseInt(req.query.n);
 
-    res.send({ data: data })
-})
+  if (!attributeName || !n || isNaN(n)) {
+    return res.status(400).send('Invalid parameters');
+  }
 
+  const response = await findAndDisplayAttribute(dbName, collectionName, attributeName, n);
+  res.send(response);
+});
+    
 device_router.get('/data/idsensor', async (req, res) => {
     const id = req.query.id
     const client = await MongoClient
@@ -108,4 +141,5 @@ device_router.get('/data/idsensor', async (req, res) => {
 
     res.send({ data: data })
 })
+
 module.exports = device_router
