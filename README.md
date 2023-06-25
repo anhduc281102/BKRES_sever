@@ -32,3 +32,6 @@ $ npm install express
 ```
 
 then you can open your browner and access url `localhost:5000/../..` to check the result.
+ex: following: http://localhost:5000/api/device/get/allsensors to get allsensors,
+http://localhost:5000/api/device/get/bkres_sensors/?attributeName=...&n=...  to get attrubute at bkres_sensor
+http://localhost:5000/api/device/create/?name=...&lat= ...&lon=... to create new device

@@ -9,7 +9,7 @@ var Message = require('./message_schema')
 
 
 message_router.get('/update',async(req,res)=>{     // get API 
-    const device_id= req.query.API;
+    const device_name= req.query.API;
     const message_device = req.query.mess;
     const device_ip = req.socket.remoteAddress;
     const device_lat = req.query.lat;
@@ -30,8 +30,8 @@ message_router.get('/update',async(req,res)=>{     // get API
             console.log('New_device')
             isNewdevice = true
             let new_device = new Devices({
-                device_id:device_id,
-                device_ip:device_ip,
+                device_name:device_name,
+                ip_device:device_ip,
                 count_message:1,
                 mess_in_minute:0,
                 is_block: false,
@@ -65,7 +65,7 @@ message_router.get('/update',async(req,res)=>{     // get API
         }}})
         }
         var new_mess = new Message({
-            device_id: device_id,
+            device_name: device_name,
             ip_device: req.socket.remoteAddress,
             time: getDay(),
             message: message_device,
@@ -157,7 +157,7 @@ message_router.get('/data',async () => {
         } finally {
             client.close()
         }
-    })    
+})    
 
 
 module.exports = message_router

@@ -1,6 +1,6 @@
 const mongose = require("mongoose");
 var message_schema = new mongose.Schema({
-    device_id:{
+    device_name:{
         type: String,
         require: true
     },

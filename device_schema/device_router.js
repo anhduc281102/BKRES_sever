@@ -82,13 +82,13 @@ device_router.post('/create',async (req,res)=>{
     //         var findNameDevice = await user.devices.find(device => device.device_name === req.body.name )
     //         if(findNameDevice) return res.json({status:'err', mess:"Name is match"})
             var Api = makeid(8)
-            const device_id= req.query.id;
+            const device_name= req.query.name;
             const device_ip = req.socket.remoteAddress;
             const device_lat = req.query.lat;
             const device_lon= req.query.lon;
             var device = new Device({
-                device_id: device_id ,
-                device_id: device_ip,
+                device_name: device_name ,
+                device_ip: device_ip,
                 API :Api ,
                 lat: device_lat,
                 lon: device_lon,
