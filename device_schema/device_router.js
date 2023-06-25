@@ -42,6 +42,39 @@ const findAndDisplayAttribute = async (dbName, collectionName, attributeName,n) 
     }
   };
 
+  const findAndDisplayAttributes = async (dbName, collectionName, excludedAttribute) => {
+    const client = await MongoClient
+      .connect(url, { useNewUrlParser: true })
+      .catch(err => { console.log(err); })
+    if (!client)
+        return
+    try {
+  
+      // Select the MongoDB database and collection
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+  
+      // Find all documents in the collection
+      const documents = await collection.find().toArray();
+  
+      // Display attributes of each document
+      const responseData = documents.map(document => {
+        const attributes = Object.keys(document).filter(attribute => attribute !== excludedAttribute);
+        return attributes.reduce((obj, attribute) => {
+          obj[attribute] = document[attribute];
+          return obj;
+        }, {});
+      });
+  
+      return responseData;
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      // Close the MongoDB connection
+      client.close();
+    }
+  };
+
 device_router.post('/create',async (req,res)=>{
     console.log(req)
     /// jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET,async(err,data)=>{
@@ -88,16 +121,13 @@ device_router.post('/create',async (req,res)=>{
 
 device_router.get('/get/allsensors', async (req, res) => {
 
-    const client = await MongoClient
-        .connect(url, { useNewUrlParser: true })
-        .catch(err => { console.log(err); })
-    const database = client.db("admin")
-    const collection = database.collection("devices")
-    const data = await collection.find({}).toArray()
-    // console.log(data)
-    client.close()
+    const dbName = 'admin';
+  const collectionName = 'devices';
+  const excludedAttribute = 'message';
 
-    res.send({ data: data })
+  const attributes = await findAndDisplayAttributes(dbName, collectionName, excludedAttribute);
+
+  res.send(attributes)
 })
 
 device_router.get('/get/okoTOJlX/:n', async (req, res) => {
