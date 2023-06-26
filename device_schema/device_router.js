@@ -13,12 +13,12 @@ device_router.post('/create',async (req,res)=>{
             // var findNameDevice = await Device.device_id.findOne(() => device.device_id === req.body.name )
             // if(findNameDevice) return res.json({status:'err', mess:"Name is match"})
             var Api = makeid(8)
-            const device_id= req.query.API;
+            const device_name= req.body.name;
             const device_ip = req.socket.remoteAddress;
             const device_lat = req.query.lat;
             const device_lon= req.query.lon;
             var device = new Device({
-                device_id: device_id ,
+                device_name: device_name ,
                 device_id: device_ip,
                 API :Api ,
                 lat: device_lat,
@@ -53,7 +53,7 @@ device_router.post('/create',async (req,res)=>{
 // })
 
 
-device_router.get('/get/allsensors', async (req, res) => {
+device_router.get('/get/all_sensors', async (req, res) => {
 
     const client = await MongoClient
         .connect(url, { useNewUrlParser: true })
@@ -67,6 +67,13 @@ device_router.get('/get/allsensors', async (req, res) => {
     res.send({ data: data })
 })
 
+
+device_router.post('/get_data',async(req, res)=>{
+    const client = await MongoClient
+        .connect(url, { useNewUrlParser: true })
+        .catch(err => { console.log(err); })
+    
+})
 device_router.get('/get/okoTOJlX', async (req, res) => {
 
     const client = await MongoClient
