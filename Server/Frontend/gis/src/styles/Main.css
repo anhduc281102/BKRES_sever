@@ -1,0 +1,7 @@
+/* Main.css */
+.map-container {
+    width: 100%;
+    height: 600px; /* Điều chỉnh chiều cao của bản đồ tại đây */
+}
+
+/* Bổ sung các quy tắc CSS khác tùy thuộc vào thiết kế của bạn */
