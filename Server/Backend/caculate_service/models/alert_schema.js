@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const alertSchema = new mongoose.Schema({
-    gateway_API: {
-        type: String,
-        required: true,
-    },
     device_API: {
         type: String,
         required: true,

@@ -4,10 +4,6 @@ const Schema = mongoose.Schema;
 
 // Định nghĩa Schema
 const ThresholdSchema = new Schema({
-    gateway_API: {
-        type: String,
-        required: true
-    },
     device_API: {
         type: String,
         required: true
