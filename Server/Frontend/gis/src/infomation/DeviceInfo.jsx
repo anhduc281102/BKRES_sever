@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import SensorInfo from '../infomation/SensorInfo';
+import SensorInfo from '../infomation/SensorInfo.jsx';
 
 function DeviceInfo({ selectedDevice }) {
     const [deviceInfo, setDeviceInfo] = useState(null);

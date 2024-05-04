@@ -3,28 +3,25 @@ import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ChartPage = ({ sensorData }) => {
-    const lastTenData = sensorData.slice(-20);
+    const lastTenData = sensorData.slice(-30);
     return (
-        <div className="chart-container" style={{ display: 'block', position: 'fixed', left: '20px', top: '20px', zIndex: 992, background: 'rgb(239 239 239)' }}>
-            {/* <ResponsiveContainer width="99%" height={300} style={{ border: '3px solid #000' }}>
-                <LineChart data={lastTenData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                    <XAxis dataKey="time" padding={{left: 0, right: 0}} />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
-                </LineChart>
-            </ResponsiveContainer> */}
-            <ResponsiveContainer width="99%" height={300} style={{ border: '3px solid #000' }}>        
-                <AreaChart data={lastTenData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <div className="chart-container" style={{ display: 'block', position: 'fixed', left: '0px', bottom: '10px', zIndex: 992, background: 'rgb(239 239 239)', width: '820px', height: '200px' }}>
+            <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={lastTenData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
                     <YAxis />
                     <Tooltip />
-                    <Area type="monotone" dataKey="temperature" stackId="1" stroke="#8884d8" fill="#8884d8" />
+                    <Area type="monotone" dataKey="data" stackId="1" stroke="#8884d8" fill="#8884d8" />
                 </AreaChart>
             </ResponsiveContainer>
+            {lastTenData.length > 0 && (
+                <div style={{ position: 'absolute', bottom: '128px', left: `calc(94.6667% - 81px)`, background: '#fff', padding: '5px', border: '1px solid #000' }}>
+                    <p style={{ margin: 0, fontWeight: 'bold' }}>Giá trị hiện tại:</p>
+                    <p style={{ margin: 0 }}>{lastTenData[lastTenData.length - 1].data}</p>
+                </div>
+            )}
         </div>
-    );
+    );    
 };
 export default ChartPage;
