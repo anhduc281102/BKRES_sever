@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -7,7 +6,7 @@ const ChartPage = ({ sensorData }) => {
     return (
         <div className="chart-container" style={{ display: 'block', position: 'fixed', left: '0px', bottom: '10px', zIndex: 992, background: 'rgb(239 239 239)', width: '820px', height: '200px' }}>
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={lastTenData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+                <AreaChart data={lastTenData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
                     <YAxis />

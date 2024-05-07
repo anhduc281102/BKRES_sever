@@ -1,4 +1,4 @@
-/* .App {
+.App {
   text-align: center;
 }
 
@@ -35,9 +35,9 @@
   to {
     transform: rotate(360deg);
   }
-} */
+}
 /* App.css */
-body {
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -45,6 +45,6 @@ body {
 
 .App {
   text-align: center;
-}
+} */
 
 /* Bổ sung các quy tắc CSS khác tùy thuộc vào thiết kế của bạn */
