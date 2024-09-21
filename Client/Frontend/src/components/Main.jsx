@@ -1,12 +1,3 @@
-
-// Dữ liệu tọa độ của các trạm thu thập dữ liệu (ví dụ)
-// const stations = [
-//     { name: 'Station 1', location: [21.0285, 105.8542], children: [[21.02, 105.85], [21.03, 105.85], [21.04, 105.85]] },
-//     { name: 'Station 2', location: [10.762622, 106.660172], children: [[10.76, 106.66], [10.77, 106.66], [10.78, 106.66]] },
-//     { name: 'Station 3', location: [16.0544, 108.2022], children: [[16.05, 108.20], [16.06, 108.20], [16.07, 108.20]] }
-//     // Thêm các trạm khác vào đây
-// ];
-
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet'; 
 import 'leaflet/dist/leaflet.css'; 
