@@ -14,7 +14,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://sanslab.ddns.net:5000/api/user/login', {
+            const response = await axios.post(`${window.API_URL}/api/user/login`, {
                 email: email,
                 password: password
             });

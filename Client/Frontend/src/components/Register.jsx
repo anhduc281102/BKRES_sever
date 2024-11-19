@@ -25,7 +25,8 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://sanslab.ddns.net:5000/api/user/register', formData);
+            console.log(window.API_URL);
+            const response = await axios.post(`${window.API_URL}/api/user/register`, formData);
             console.log('Register response:', response.data);
             navigate('/login'); // Sử dụng navigate để chuyển hướng đến trang đăng nhập
         } catch (error) {

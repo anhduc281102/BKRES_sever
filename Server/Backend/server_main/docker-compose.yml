@@ -1,25 +1,38 @@
-version: '3.8'
-
 services:
-  # Dịch vụ MongoDB
   mongo:
-    image: mongo
-    container_name: mongo
+    image: mongo:8.0.3
+    container_name: mongo-db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: bkres
-      MONGO_INITDB_ROOT_PASSWORD: bkres
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - "27017:27017"
+    volumes:
+      - mongodb_data_container:/data/db
+    networks:
+      - bkres_network
 
   # Dịch vụ ứng dụng Node.js
   app:
     build:
       context: .
-    image: jamieanhduc281102/bkres_server:latest
-    container_name: bkres_server
+    image: back-end-v1
+    container_name: back-end
+#    environment:
+#      - MONGO_DB_CONNECTION_STRING=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo-db:27017?retryWrites=true&w=majority
+    env_file:
+      - .env
     ports:
       - "5000:5000"
+    networks:
+      - bkres_network
     depends_on:
       - mongo
-    environment:
-      MONGO_DB_CONNECTION_STRING: mongodb+srv://anhduc2002cute:T3FPpHg5mkzKFmOH@cluster0.bdogj3t.mongodb.net/?retryWrites=true&w=majority
+
+volumes:
+  mongodb_data_container:
+
+networks:
+  bkres_network:
+    driver: bridge
+    name: bkres_network

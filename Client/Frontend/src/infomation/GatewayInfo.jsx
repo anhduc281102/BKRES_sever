@@ -20,7 +20,7 @@ function GatewayInfo({ selectedGateway }) {
 
         const fetchGatewayInfo = async () => {
             try {
-                const response = await axios.get(`http://sanslab.ddns.net:5000/api/gateway/getGateway/${selectedGateway.gateway_API}`,config);
+                const response = await axios.get(`${window.API_URL}/api/gateway/getGateway/${selectedGateway.gateway_API}`,config);
                 setGatewayInfo(response.data);
             } catch (error) {
                 console.error('Error fetching gateway info:', error);

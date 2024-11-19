@@ -121,6 +121,3 @@ router.get('/alert/:sensor_API', async (req, res) => {
 });
 
 module.exports = router;
-
-
-module.exports = router;

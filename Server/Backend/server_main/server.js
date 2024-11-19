@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require("express")
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
@@ -9,19 +10,31 @@ var datarouter= require('./router/data_router')
 var app = express()
 const bodyParser = require('body-parser')
 var mongoose = require('mongoose')
-var mongodb_url= 'mongodb://admin:abc123@sanslab.viewdns.net:27017/bkres'
+var mongodb_url = "mongodb://bkres:bkres@mongo-db:27017?retryWrites=true&w=majority"
+
 mongoose.Promise = global.Promise
 
-mongoose.connect(mongodb_url,).then(
+///////////////////////////////////////////////////////////////
+// Lấy chuỗi kết nối từ biến môi trường
+const connectionString = process.env.MONGO_DB_CONNECTION_STRING;
+const cors = require('cors')
+//// In ra màn hình
+// console.log("[+++++] MongoDB Connection String:", connectionString);
+///////////////////////////////////////////////////////////////
+
+mongoose.connect(connectionString).then(
     ()=>{
-        console.log('connect DB successfully')
+        console.log('[+] Connect MongoDB successfully!')
+        app.listen(5000,()=>{
+            console.log('[+] App listen on port 5000')
+            console.log("[+] Server is running!\n[+] API documentation: http://localhost:5000/swagger/doc")
+        })
         ,err=>{
             console.log(err)
         }
     }
 )
-
-
+app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.json())
@@ -33,9 +46,4 @@ app.use("/api/sensor",sensorrouter)
 
 app.use('/swagger/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-
-app.listen(5000,()=>{
-    console.log('App listen on port 5000')
-    console.log("Server is running!\nAPI documentation: http://localhost:5000/swagger/doc")
-})  
 

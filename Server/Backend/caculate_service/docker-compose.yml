@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    container_name: cal-service
+    ports:
+      - "5002:5002"
+    env_file:
+      - .env
+    networks:
+      - bkres_network
+
+networks:
+  bkres_network:
+    driver: bride
+    name: bkres_network

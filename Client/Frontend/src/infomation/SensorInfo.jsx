@@ -21,7 +21,7 @@ const SensorInfo = ({ sensor }) => {
                         'sensor_API': `${sensor_API}`
                     }
                 };
-                const response = await axios.get(`http://sanslab.ddns.net:5000/api/data/getdata/${sensor_API}`, config);
+                const response = await axios.get(`${window.API_URL}/api/data/getdata/${sensor_API}`, config);
                 setSensorData(response.data.map(item => ({ data: item.data.data, time: item.data.time })));
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -36,7 +36,7 @@ const SensorInfo = ({ sensor }) => {
                 }
             };
             try {
-                const response = await axios.get(`http://sanslab.ddns.net:5000/api/sensor/getSensor/${sensor.sensor_API}`, config);
+                const response = await axios.get(`${window.API_URL}/api/sensor/getSensor/${sensor.sensor_API}`, config);
                 setSensorInfo(response.data);
             } catch (error) {
                 console.error("Error fetching sensor information:", error);

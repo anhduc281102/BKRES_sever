@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    container_name: front-end
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - bkres_network
+
+networks:
+  bkres_network:
+    external: true
+    name: bkres_network
+#C:\Users\quang>  curl -X POST http://localhost:5000/api/user/login --header "accept: application/json" --header "Content-Type: application/json" --data '{\"email\": \"quangtraan1604@gmail.com\", \"password\": \"kinney55\"}'

@@ -22,7 +22,7 @@ function DeviceInfo({ selectedDevice }) {
 
         const fetchDeviceInfo = async () => {
             try {
-                const response = await axios.get(`http://sanslab.ddns.net:5000/api/device/getDevice/${selectedDevice.device_API}`, config);
+                const response = await axios.get(`${window.API_URL}/api/device/getDevice/${selectedDevice.device_API}`, config);
                 setDeviceInfo(response.data);
             } catch (error) {
                 console.error('Error fetching device info:', error);

@@ -33,7 +33,7 @@ function Main() {
             };
         
             // Gửi yêu cầu GET đến endpoint để lấy dữ liệu gateway
-            axios.get('http://sanslab.ddns.net:5000/api/gateway/getallGateway', config)
+            axios.get(`${window.API_URL}/api/gateway/getallGateway`, config)
             .then(response => {
                 const gateways = response.data.data.gateways;
                 // Khởi tạo bản đồ và đặt tọa độ trung tâm
